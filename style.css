@@ -1,0 +1,304 @@
+:root {
+  --background: #1f1f1f;
+  --status-background: #181818;
+  --text: #cccccc;
+  --muted: #6e7681;
+  --blue: #4fc1ff;
+  --username: #4ec9b0;
+  --hostname: #dcdcaa;
+  --prefix: #ce9178;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  background: var(--background);
+  color: var(--text);
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  -webkit-font-smoothing: antialiased;
+}
+
+.theme-label {
+  position: fixed;
+  top: 38px;
+  left: 40px;
+  color: var(--muted);
+  font-size: 16px;
+  letter-spacing: 0.01em;
+}
+
+.workspace {
+  min-height: calc(100svh - 30px);
+  padding-top: clamp(152px, 27vh, 244px);
+}
+
+.terminal {
+  width: min(90vw, 520px);
+  margin: 0 auto;
+}
+
+.mark {
+  display: block;
+  width: 144px;
+  height: auto;
+  margin: 0 auto 58px;
+}
+
+.mark-body {
+  fill: var(--text);
+}
+
+.mark-leaf {
+  fill: var(--blue);
+}
+
+.command-area {
+  width: 100%;
+}
+
+.prompt-line {
+  display: flex;
+  align-items: baseline;
+  width: 100%;
+  min-height: 34px;
+  margin: 0;
+  font-size: clamp(21px, 2.1vw, 26px);
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.prompt-label {
+  flex: none;
+  cursor: text;
+}
+
+.prompt-user {
+  color: var(--username);
+}
+
+.prompt-at,
+.prompt-path {
+  color: var(--text);
+}
+
+.prompt-host {
+  color: var(--hostname);
+}
+
+.prompt-symbol {
+  color: var(--blue);
+}
+
+.input-shell {
+  position: relative;
+  display: inline-flex;
+  flex: 1;
+  align-items: baseline;
+  min-width: 2ch;
+  height: 1.3em;
+  margin-left: 0.55ch;
+  overflow: hidden;
+  color: var(--text);
+  cursor: text;
+}
+
+.input-mirror {
+  display: inline-block;
+  min-width: 0;
+  overflow: hidden;
+  white-space: pre;
+}
+
+.block-cursor {
+  display: inline-block;
+  flex: none;
+  width: 0.62em;
+  height: 1.05em;
+  margin-left: 0.12em;
+  transform: translateY(0.13em);
+  background: var(--text);
+  animation: blink 1.08s steps(1, end) infinite;
+}
+
+.input-shell:not(.is-focused) .block-cursor {
+  opacity: 0;
+  animation: none;
+}
+
+#searchInput {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: transparent;
+  caret-color: transparent;
+  font: inherit;
+}
+
+.terminal-output {
+  max-height: min(32vh, 220px);
+  margin-top: 19px;
+  padding-right: 10px;
+  overflow-y: auto;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.75;
+  scrollbar-color: var(--muted) transparent;
+  scrollbar-width: thin;
+}
+
+.terminal-output[hidden] {
+  display: none;
+}
+
+.output-command,
+.output-value {
+  color: var(--prefix);
+}
+
+.output-success,
+.status-online {
+  color: var(--username);
+}
+
+.output-error,
+.status-offline {
+  color: var(--prefix);
+}
+
+.output-index {
+  display: inline-block;
+  min-width: 3ch;
+  color: var(--blue);
+}
+
+.prefix-hints {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 38px;
+  margin-top: 43px;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.4;
+}
+
+.prefix-key {
+  color: var(--prefix);
+}
+
+.focus-hint {
+  margin: 17px 0 0;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.4;
+}
+
+.status-bar {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 30px;
+  padding: 0 16px;
+  background: var(--status-background);
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 30px;
+}
+
+.status-separator {
+  padding: 0 0.55em;
+}
+
+.status-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+#engineStatus {
+  color: var(--hostname);
+}
+
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .theme-label {
+    top: 24px;
+    left: 24px;
+    font-size: 13px;
+  }
+
+  .workspace {
+    padding-top: 18vh;
+  }
+
+  .terminal {
+    width: min(88vw, 440px);
+  }
+
+  .mark {
+    width: 122px;
+    height: auto;
+    margin-bottom: 48px;
+  }
+
+  .prompt-line {
+    font-size: clamp(17px, 5.2vw, 22px);
+  }
+
+  .prefix-hints {
+    gap: 8px 22px;
+    margin-top: 35px;
+    font-size: 14px;
+  }
+
+  .focus-hint {
+    font-size: 14px;
+  }
+
+  .status-bar {
+    padding: 0 10px;
+    font-size: 12px;
+  }
+
+  .status-right {
+    gap: 10px;
+  }
+
+  #networkStatus {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .block-cursor {
+    animation: none;
+  }
+}

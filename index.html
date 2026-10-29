@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#1F1F1F">
+    <title>New Tab</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header class="theme-label" id="themeLabel">Dark Modern</header>
+
+    <main class="workspace">
+      <section class="terminal" aria-label="Safari 起始页搜索">
+        <svg class="mark" xmlns="http://www.w3.org/2000/svg" viewBox="14 0 192 150" aria-label="文积助手" role="img">
+          <path d="M64,140 Q45.9,84.3 24,30 Q30.8,89.8 64,140Z" class="mark-body"/>
+          <path d="M66,140 Q92.1,106.3 98,64 Q79.2,100.8 66,140Z" class="mark-body"/>
+          <path d="M134,140 Q120.8,100.8 102,64 Q107.9,106.3 134,140Z" class="mark-body"/>
+          <path d="M136,140 Q166.3,94.5 170,40 Q151.1,89.4 136,140Z" class="mark-body"/>
+          <path d="M168,44 Q190.5,30.3 188,4 Q174.4,22.2 168,44Z" class="mark-leaf"/>
+          <path d="M166,50 Q182.4,51.0 198,46 Q180.9,39.1 166,50Z" class="mark-leaf"/>
+          <path d="M170,40 Q165.6,25.6 156,14 Q156.8,30.3 170,40Z" class="mark-leaf"/>
+        </svg>
+
+        <div class="command-area">
+          <form class="prompt-line" id="searchForm" autocomplete="off">
+            <label class="prompt-label" for="searchInput">
+              <span class="prompt-user" id="promptUser">wenji</span><span class="prompt-at">@</span><span class="prompt-host" id="promptHost">safari</span><span class="prompt-path"> ~ </span><span class="prompt-symbol">❯</span>
+            </label>
+            <span class="input-shell" id="inputShell">
+              <span class="input-mirror" id="inputMirror" aria-hidden="true"></span><span class="block-cursor" aria-hidden="true"></span>
+              <input id="searchInput" name="query" type="text" aria-label="输入搜索内容、网址或快捷命令" autocapitalize="none" autocomplete="off" autocorrect="off" spellcheck="false" autofocus>
+            </span>
+          </form>
+
+          <div class="terminal-output" id="terminalOutput" role="status" aria-live="polite" hidden></div>
+          <div class="prefix-hints" id="prefixHints" aria-label="搜索前缀"></div>
+          <p class="focus-hint"># click prompt to focus · / on page · help for commands</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="status-bar">
+      <span><span id="statusUser">wenji</span><span class="status-separator"> ~ </span><span id="statusBranch">main</span></span>
+      <span class="status-right">
+        <span id="networkStatus">online</span>
+        <span id="engineStatus">google</span>
+        <time id="clock" aria-label="当前日期和时间"></time>
+      </span>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
