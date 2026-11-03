@@ -131,6 +131,7 @@ const elements = {
   form: document.querySelector("#searchForm"),
   input: document.querySelector("#searchInput"),
   inputShell: document.querySelector("#inputShell"),
+  inputTrack: document.querySelector("#inputTrack"),
   inputMirror: document.querySelector("#inputMirror"),
   output: document.querySelector("#terminalOutput"),
   prefixHints: document.querySelector("#prefixHints"),
@@ -208,8 +209,14 @@ function hideOutput() {
   elements.output.replaceChildren();
 }
 
+function updateInputViewport() {
+  const overflow = Math.max(0, elements.inputTrack.scrollWidth - elements.inputShell.clientWidth);
+  elements.inputTrack.style.transform = `translateX(-${overflow}px)`;
+}
+
 function updateInputMirror() {
   elements.inputMirror.textContent = elements.input.value;
+  requestAnimationFrame(updateInputViewport);
 }
 
 function setInputValue(value) {
@@ -273,21 +280,32 @@ function pushHistory(value) {
 
 function showHelp() {
   showOutput([
-    "available commands:",
-    { key: "engine [name]", text: "list or change the default search engine" },
-    { key: "links", text: "list configured shortcuts" },
-    { key: "open <name>", text: "open a shortcut" },
-    { key: "link add <name> <url>", text: "save a shortcut" },
-    { key: "link remove <name>", text: "remove a custom shortcut" },
-    { key: "history", text: "show local command and search history" },
-    { key: "clear history", text: "delete local history" },
-    { key: "note <text>", text: "save a local note" },
-    { key: "notes", text: "list local notes" },
-    { key: "note remove <n>", text: "remove one note" },
-    { key: "note clear", text: "delete all notes" },
-    { key: "config", text: "show editable settings" },
-    { key: "help", text: "show this list" },
-    { key: "Tab / ↑ / ↓", text: "complete commands / browse history" },
+    "搜索与打开：",
+    { key: "<关键词>", text: "使用当前默认搜索引擎" },
+    { key: "<网址>", text: "直接打开网址" },
+    { key: "!gh / !bl / !yt <关键词>", text: "搜索 GitHub / Bilibili / YouTube" },
+    { key: "!ai", text: "打开 ChatGPT" },
+    "搜索引擎：",
+    { key: "engine", text: "查看可用搜索引擎" },
+    { key: "engine <name>", text: "切换默认搜索引擎" },
+    "快捷链接：",
+    { key: "links", text: "查看快捷链接" },
+    { key: "open <name>", text: "打开快捷链接" },
+    { key: "link add <name> <url>", text: "添加快捷链接" },
+    { key: "link remove <name>", text: "删除自定义快捷链接" },
+    "历史与便签：",
+    { key: "history / clear history", text: "查看 / 清除输入历史" },
+    { key: "note <内容> / notes", text: "保存 / 查看本地便签" },
+    { key: "note remove <序号>", text: "删除一条便签" },
+    { key: "note clear", text: "清除全部便签" },
+    "外观与操作：",
+    { key: "config", text: "查看可修改设置" },
+    { key: "set user|host|branch|theme <值>", text: "修改页面文字" },
+    { key: "set color <名称> <#RRGGBB>", text: "修改主题颜色" },
+    { key: "reset config", text: "恢复默认设置" },
+    { key: "clear", text: "清除终端输出" },
+    { key: "help / commands", text: "显示本清单" },
+    { key: "Tab / ↑ / ↓ / Esc", text: "补全 / 浏览历史 / 清空输入" },
   ]);
 }
 
@@ -466,7 +484,7 @@ function handleCommand(rawValue) {
   const tokens = rawValue.split(/\s+/);
   const command = tokens[0].toLowerCase();
 
-  if (command === "help") {
+  if (command === "help" || command === "commands") {
     showHelp();
   } else if (command === "config") {
     showConfig();
@@ -578,7 +596,7 @@ function completionCandidates(value) {
   }
 
   return [
-    "help", "config", "engine", "links", "open", "link add", "link remove",
+    "help", "commands", "config", "engine", "links", "open", "link add", "link remove",
     "history", "clear history", "note", "notes", "note remove", "note clear",
     "set user", "set host", "set branch", "set theme", "set color", "reset config", "clear",
     ...Object.keys(CONFIG.prefixes),
@@ -681,6 +699,7 @@ document.addEventListener("pointerdown", (event) => {
 window.addEventListener("online", updateNetworkStatus);
 window.addEventListener("offline", updateNetworkStatus);
 window.addEventListener("load", focusInput);
+window.addEventListener("resize", updateInputViewport);
 
 applyState();
 updateInputMirror();

@@ -30,14 +30,16 @@
               <span class="prompt-user" id="promptUser">wenji</span><span class="prompt-at">@</span><span class="prompt-host" id="promptHost">safari</span><span class="prompt-path"> ~ </span><span class="prompt-symbol">❯</span>
             </label>
             <span class="input-shell" id="inputShell">
-              <span class="input-mirror" id="inputMirror" aria-hidden="true"></span><span class="block-cursor" aria-hidden="true"></span>
+              <span class="input-track" id="inputTrack" aria-hidden="true">
+                <span class="input-mirror" id="inputMirror"></span><span class="block-cursor"></span>
+              </span>
               <input id="searchInput" name="query" type="text" aria-label="输入搜索内容、网址或快捷命令" autocapitalize="none" autocomplete="off" autocorrect="off" spellcheck="false" autofocus>
             </span>
           </form>
 
           <div class="terminal-output" id="terminalOutput" role="status" aria-live="polite" hidden></div>
           <div class="prefix-hints" id="prefixHints" aria-label="搜索前缀"></div>
-          <p class="focus-hint"># click prompt to focus · / on page · help for commands</p>
+          <p class="focus-hint"># click prompt to focus · / on page · help or commands</p>
         </div>
       </section>
     </main>

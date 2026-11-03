@@ -111,10 +111,16 @@ body {
   cursor: text;
 }
 
+.input-track {
+  display: inline-flex;
+  flex: none;
+  align-items: baseline;
+  min-width: max-content;
+  transform: translateX(0);
+}
+
 .input-mirror {
   display: inline-block;
-  min-width: 0;
-  overflow: hidden;
   white-space: pre;
 }
 
